@@ -1,0 +1,25 @@
+<%= simple_form_for(@user, html: {autocomplete: 'off'}) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :Name, required: true, autofocus: true %>
+    <%= f.input :email, disabled: @user.email? %>
+    <%= f.input :Phone_number, required: true, autofocus: true %>
+
+    <%= f.input :dob, as: :date, start_year: Date.today.year - 100,
+                end_year: Date.today.year,
+                order: [:month, :day, :year] %>
+    <%= f.input :address %>
+
+    <% if not @user.encrypted_password? %>
+      <%= f.input :password %>
+
+    <% end %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, :class => "btn btn-warning" %>
+  </div>
+<% end %>

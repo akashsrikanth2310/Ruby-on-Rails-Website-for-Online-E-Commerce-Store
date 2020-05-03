@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <%= image_tag(@item.image) if @item.image.attached? %>
+</p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @item.brand %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @item.category %>
+</p>
+
+<p>
+  <strong>Is restricted:</strong>
+  <%= @item.is_restricted %>
+</p>
+
+<p>
+  <strong>Is age restricted:</strong>
+  <%= @item.is_age_restricted %>
+</p>
+
+
+<p>
+  <strong>Cost:</strong>
+  <%= @item.cost %>
+</p>
+
+<% if current_user && current_user.role == 'admin' %>
+  <p>
+    <strong>Quantity:</strong>
+    <%= @item.quantity %>
+  </p>
+
+  <p>
+    <strong>Taxslab:</strong>
+    <%= @item.taxslab %>
+  </p>
+
+  <p>
+    <strong>Purchase count:</strong>
+    <%= @item.purchase_count %>
+  </p>
+
+  <%= link_to 'Edit', edit_item_path(@item), :class => "btn btn-warning" %> |
+<% end %>
+<%= link_to 'Back', items_path, :class => "btn btn-warning" %>
+<br/><br/>
+<% if @item.quantity > 0 && current_user %>
+  <%= form_tag cart_items_path  do %>
+    <%= hidden_field_tag(:item_id, @item.id) %>
+    <%= number_field_tag(:q, 1,:disabled => (current_user.is_below_18? and @item.is_age_restricted)) %>
+   <%= submit_tag("Add to cart", :disabled => (current_user.is_below_18? and @item.is_age_restricted), :class => "btn btn-warning" ) %>
+   <%= submit_tag("Buy Now", formaction: new_order_path , :disabled => (current_user.is_below_18? and @item.is_age_restricted), :class => "btn btn-warning") %>
+
+
+
+  <% end %>
+  <br/>
+  <%= button_to "Add to WishList", wish_items_path(:item_id => @item.id), :class => "btn btn-info" %>
+<% end %>

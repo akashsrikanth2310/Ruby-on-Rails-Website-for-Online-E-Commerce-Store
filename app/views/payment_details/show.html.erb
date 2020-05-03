@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @payment_detail.name %>
+</p>
+
+<p>
+  <strong>Card number:</strong>
+  <%= @payment_detail.card_number %>
+</p>
+
+<p>
+  <strong>Expiry:</strong>
+  <%= @payment_detail.expiry %>
+</p>
+
+<p>
+  <strong>Cvv:</strong>
+  <%= @payment_detail.cvv %>
+</p>
+
+<%= link_to 'Edit', edit_payment_detail_path(@payment_detail) %> |
+<%= link_to 'Back', payment_details_path %>

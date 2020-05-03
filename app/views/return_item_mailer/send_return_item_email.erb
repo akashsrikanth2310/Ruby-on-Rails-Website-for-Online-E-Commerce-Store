@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<h1>Hi Customer,</h1>
+<p>
+ Your return for the Order ID <%=@order.id %> has been approved.<br/>
+  <strong>Details:</strong>
+  <br/>
+  <%@item = Item.find(@return_item.item_id)%><br/>
+  <strong>Name:</strong>  <%= @item.name %><br/>
+  <strong>Purchased On:</strong>  <%= @order.created_at %><br/>
+  <strong> Return Requested on: </strong> <%= @return_item.created_at %><br/>
+</p>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Rails Online Shop" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Store Management System" %>">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+  <header>
+    <%= render 'layouts/navigation' %>
+  </header>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  <main role="main">
+    <%= content_for?(:content) ? yield(:content) : yield %>
+  </main>
+
+  </body>
+</html>

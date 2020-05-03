@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @return_item.order_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @return_item.user_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @return_item.status %>
+</p>
+
+<%= link_to 'Edit', edit_return_item_path(@return_item) %> |
+<%= link_to 'Back', return_items_path %>

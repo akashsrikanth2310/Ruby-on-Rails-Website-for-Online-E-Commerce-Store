@@ -1,0 +1,9 @@
+<h2>WishList</h2>
+<ul>
+  <% @wish.wish_items.each do |wish_item| %>
+    <li>Item: <%= wish_item.item.name %>/ Price: <%= number_to_currency(wish_item.item.cost) %>
+      <%= button_to "Add #{wish_item.item.name} to cart", cart_items_path(:item_id => wish_item.item.id,q: 1),class: "btn btn-warning" %>
+      <%= link_to "Remove item", wish_item_path(wish_item), method: :delete,class: "btn btn-danger" %>
+    </li>
+  <% end %>
+</ul>

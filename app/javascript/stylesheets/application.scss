@@ -1,0 +1,71 @@
+@import "~bootstrap/scss/bootstrap";
+
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,700');
+
+$white: white;
+$black: black;
+
+.navbar {
+
+        margin-bottom: 0;
+        background: $black;
+}
+body {
+        background: #43464B;
+        color: $white;
+        font-family: 'Merriweather', sans-serif;
+}
+h1,
+h2 {
+        font-weight: bold;
+}
+p {
+        font-size: 16px;
+        color: $white;
+}
+
+.jumbotron {
+        background: #0048CD;
+        color: $white;
+        text-align: center;
+        p {
+                color: $white;
+                font-size: 26px;
+        }
+}
+.link {
+        color: $white;
+}
+
+img,
+video,
+audio {
+        margin-top: 20px;
+        max-width: 80%;
+}
+caption {
+
+        float: left;
+        clear: both;
+
+}
+main {
+        padding-top: 20px;
+        padding-right: 10px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+}
+.pretty th .current {
+        padding-right: 12px;
+        background-repeat: no-repeat;
+        background-position: right center;
+}
+
+.pretty th .a{
+        padding-right: 12px;
+        background-image : url(../images/up.gif);
+}
+
+.pretty th .desc {
+        background-image : url(../images/down.gif);
+}

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Carts show</h1>
+<ul>
+  <% @cart.cart_items.each do |cart_item| %>
+    <li>Item: <%= cart_item.item.name %></li>
+    <li>Quantity: <%= cart_item.quantity %></li>
+    <li>Price before tax: <%= number_to_currency(cart_item.item.cost * cart_item.quantity) %></li>
+    <li>Tax slab: <%= cart_item.item.taxslab %></li>
+    <li>Tax to be collected: <%= number_to_currency(cart_item.tax_amount) %></li>
+    <li>Price after tax: <%= number_to_currency(cart_item.total_price) %></li>
+    <ul>
+      <li>
+        <%= link_to "+1", cart_item_add_path(:id => cart_item), method: :post, :class => "btn btn-warning" %>
+        <%= link_to "-1", cart_item_reduce_path(:id => cart_item), method: :post, :class => "btn btn-warning" %>
+      </li>
+      <br/>
+      <li>
+        <%= button_to "Remove item", cart_item_path(cart_item), method: :delete, :class => "btn btn-warning" %>
+      </li>
+    </ul>
+    <br/>
+  <% end %>
+</ul>
+<h3>Order total: <%= number_to_currency(@cart.sub_total) %></h3>
+<%if @cart.cart_items.present? %>
+<% if current_user.is_above_65? %>
+  <h3>Senior discount(10%) applied: <%= number_to_currency(@cart.senior_discount) %></h3>
+<% end %>
+<%= link_to "Proceed to checkout", new_order_path, :class => "btn btn-warning" %>
+<br/><br/>
+<%= link_to "Empty cart", cart_path(@current_cart), method: :delete, :class => "btn btn-warning" %>
+<br/><br/>
+  <%end %>
+<%= link_to "Back", items_path, :class => "btn btn-warning" %>

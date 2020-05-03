@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @user.Name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @user.Phone_number %>
+</p>
+
+<p>
+  <strong>Dob:</strong>
+  <%= @user.dob  %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @user.address %>
+</p>
+<% if @user.payment_detail and current_user.id==@user.id %>
+  <strong> Payment Details </strong>
+  <br/>
+    <%= label_tag(:payment_details_id, "XXXX-XXXX-XXXX-"+@user.payment_detail.card_number[12,15]) %>
+  |   <%= link_to 'Edit', edit_payment_detail_path(@user.payment_detail) , class: "btn btn-info"%>
+<%elsif current_user.id==@user.id %>
+  <br/>
+  <%= link_to 'New Payment Detail', new_payment_detail_path , class: "btn btn-info"%>
+ <% end %>
+<br/><br/>
+<%= link_to 'Edit', edit_user_path(@user),class: 'btn btn-warning' %> |
+<%= link_to 'Back', users_path ,class: 'btn btn-warning'%>

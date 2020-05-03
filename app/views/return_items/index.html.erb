@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Return Items</h1>
+
+<table  class="table table-dark">
+  <thead>
+    <tr>
+      <th>Order</th>
+      <th>User</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @return_items.each do |return_item| %>
+      <tr>
+
+        <td><%= return_item.order_id %></td>
+        <td><%= return_item.user_name %></td>
+        <td><%= return_item.status %></td>
+        <%if return_item.status=='Return Requested' %>
+        <td><%= button_to 'Approve Order', return_items_update_path(:return_item_id => return_item.id, :status => "approve"), class: 'btn btn-danger', :method => :post%></td>
+        <td><%= button_to 'Discard Order', return_items_update_path(:return_item_id => return_item.id, :status => "reject"), class: 'btn btn-danger', :method => :post%></td>
+        <%end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+

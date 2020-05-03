@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Items</h1>
+
+<table class="table table-dark" >
+  <thead>
+  <tr>
+    <th>Brand</th>
+    <th>Name</th>
+    <th>Category</th>
+        <th><%= sortable "Cost" %></th>
+
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @items.each do |item| %>
+    <tr>
+      <td><%= item.brand %></td>
+      <td><%= item.name %></td>
+      <td><%= item.category %></td>
+
+      <td><%= item.cost %></td>
+      <td><%= link_to 'Show', item_path(item), :class => "btn btn-warning" %></td>
+      <td>
+        <% if current_user && current_user.role == 'admin' %>
+          <%= link_to 'Edit', edit_item_path(item), :class => "btn btn-warning" %>
+          <%= link_to 'Destroy', item, method: :delete, data: {confirm: 'Are you sure?'}, :class => "btn btn-warning" %>
+          <%= link_to 'View Purchase History',purchase_history_byItem_url(:item => item), :class => "btn btn-info"   %>
+        <% end %>
+        <% if current_user %>
+          <% if item.quantity > 0 %>
+            <%= form_tag cart_items_path  do %>
+              <%= hidden_field_tag(:item_id, item.id) %>
+              <%= label_tag("Quantity") %>
+            <%= number_field_tag(:q, 1,:min => 1, :max => item.quantity) %>
+              <%= submit_tag("Add to cart", :disabled => (current_user.is_below_18? and item.is_age_restricted), :class => "btn btn-warning" ) %>
+              <%= submit_tag("Buy Now", formaction: new_order_path , :disabled => (current_user.is_below_18? and item.is_age_restricted), :class => "btn btn-warning") %>
+
+
+            <% end %>
+            <br/>
+            <%= button_to "Add to WishList", wish_items_path(:item_id => item.id), :disabled => (current_user.is_below_18? and item.is_age_restricted), :class => "btn btn-info" %>
+
+          <% else %>
+            <%= button_to "Notify when available", subscribe_path(item), :class => "btn btn-warning" %>
+          <% end %>
+        <% else %>
+          <%= button_to "Login Or Register to Buy", new_user_session_path, :class => "btn btn-danger" %>
+        <% end %>
+
+      </td>
+
+    </tr>
+  <% end %>
+  <%= form_tag items_path, :method => 'get' do %>
+    <p>
+      <%= text_field_tag :find_val, params[:find_val] %>
+      <%= select_tag(:values_finder, options_for_select([["category"], ["brand"]], params[:values_finder]), class: "select") %>
+      <%= submit_tag "Find Item", :name => nil %>
+    </p>
+  <% end %>
+  <p><%= link_to 'Clear Search', :clear => 'quantity' %></p>
+  <p><%= link_to 'filter by availability', :filter => 'quantity' %></p>
+  <p><%= link_to 'Sort by Popularity', :popularity => 'purchase_count' %></p>
+</table>
+<% if current_user && current_user.role == 'admin' %>
+  <%= link_to 'New Item', new_item_path, :class => "btn btn-warning" %>
+<% end %>
+<br>
+
+

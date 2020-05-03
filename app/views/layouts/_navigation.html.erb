@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <a> <%= link_to "Rails Online Shop", root_path, class: 'navbar-brand' %></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class='nav-item'><%= link_to 'Home', welcome_index_path, class: 'nav-link' %></li>
+      <li class='nav-item'><%= link_to 'Items', items_path, class: 'nav-link' %></li>
+      <li class="nav-item">
+
+      </li>
+      </li>
+      <li class='nav-item'>
+        <% if current_user %>
+          <%= link_to 'Sign Out', destroy_user_session_path, :method => :delete, class: 'nav-link' %>
+
+        <% else %>
+          <%= link_to 'Sign In', new_user_session_path, class: 'nav-link' %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar-collapse collapse w-20 order-2 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+      <%if current_user %>
+      <li class="nav-item">
+        <pre class="tab"><%= link_to 'Cart '+@current_cart.total_items.to_s, cart_path(@current_cart.id), class: 'btn btn-primary' %></pre>
+      </li>
+      <li class="nav-item">
+        <pre class="tab"> <%= link_to 'Wish List', wish_path(@current_wish.id), class: 'btn btn-primary' %></pre>
+      </li>
+        <%end %>
+      <% if current_user && current_user.role == 'admin' %>
+        <li class="nav-item">
+          <%= link_to 'Manage Users', users_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'View Return Requests', return_items_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'View Special Item Requests', orders_path(:show_restricted => 'is_restricted'), class: 'nav-link' %>
+        </li>
+      <% end %>
+      <li class="nav-item">
+
+        <% if current_user && current_user.role == 'admin' %>
+          <%= link_to 'Profile', user_path(current_user.id), class: 'nav-link' %>
+          <%= link_to 'Orders', orders_path, class: 'nav-link' %>
+        <% elsif current_user %>
+          <%= link_to 'Profile', user_path(current_user.id), class: 'nav-link' %>
+          <%= link_to 'Orders', orders_path, class: 'nav-link' %>
+        <% end %>
+      </li>
+      <li>
+        <% if current_user && current_user.role == 'admin' %>
+          <%= link_to 'Feedback', feedbacks_path, class: 'nav-link' %>
+        <% elsif current_user %>
+          <%= link_to 'Feedback', new_feedback_path, class: 'nav-link' %>
+        <% else %>
+          <%= link_to 'Feedback', '/feedbacks/new', class: 'nav-link' %>
+        <% end %>
+      </li>
+
+    </ul>
+  </div>
+</nav>

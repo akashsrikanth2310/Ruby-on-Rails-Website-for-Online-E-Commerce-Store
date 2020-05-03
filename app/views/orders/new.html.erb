@@ -1,0 +1,29 @@
+<h1>Orders#new</h1>
+<%= simple_form_for(@order) do |f|%>
+  <p>
+
+    <%=f.input :name, :readonly=>true, :input_html => { :value => current_user.Name} %>
+  </p>
+  <p>
+    <%=f.input :email, :readonly=>true, :input_html => { :value => current_user.email} %>
+  </p>
+
+  <%= label_tag("Select Payment Mode") %>
+  <% if current_user.payment_detail %>
+    <br/>
+    <%= f.radio_button(:payment_details_id, current_user.payment_detail.id,:required => true) %>
+    <%= label_tag(:payment_details_id, "XXXX-XXXX-XXXX-"+current_user.payment_detail.card_number[12,15]) %>
+    <%else %>
+    <br/>
+    <%= link_to 'New Payment Detail', new_payment_detail_path(continue: true) , class: "btn btn-info"%>
+  <% end %>
+  <br/>
+  <br/>
+  <br/>
+
+  <p>
+    <% if current_user.payment_detail %>
+    <%= f.submit(class: "btn btn-warning",:disable => true) %>
+      <%end %>
+  </p>
+<% end%>

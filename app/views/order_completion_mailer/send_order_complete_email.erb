@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<h1>Hi Customer,</h1>
+<p>
+ Thank you for Shopping from RailsShop.<br/>
+ Here are your order details:
+</p>
+<div class="card bg-dark" style="width: 50rem;">
+  <div class="card-body">
+    <h5 class="card-title">Status: <%=params[:status].capitalize %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><%=params[:reason] %></h6>
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-dark">
+        <%= @order.email %>
+      </li>
+
+      <li class="list-group-item list-group-item-dark">
+        <%= "Items" %>
+        <br/>
+        <% @order.cart_items.each do |item| %>
+          <%= item.quantity %> x <%= Item.find(item.item_id).name %>
+          <br/>
+        <% end %>
+      </li>
+
+    </ul>
+
+  </div>
+</div>
+
+</body>
+</html>

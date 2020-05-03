@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @feedback.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @feedback.email %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @feedback.comments %>
+</p>
+
+<%= link_to 'Back', welcome_index_path , :class => "btn btn-warning"%>

@@ -1,0 +1,11 @@
+<h1>PaymentGateway#confirm</h1>
+<p>Find me in app/views/payment_gateway/confirm.html.erb</p>
+
+<%= form_tag(verify_path, method: "post") do %>
+  <%= label_tag(:otp, "Enter OTP:") %>
+  <%= text_field_tag(:otp) %>
+  <%= hidden_field_tag(:order_id, "OrderID") %>
+  <%= hidden_field_tag(:order_id,params[:order_id],:readonly => true) %>
+  <%= submit_tag("Pay Now") %>
+<% end %>
+

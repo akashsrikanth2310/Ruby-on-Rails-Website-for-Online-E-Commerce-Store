@@ -1,0 +1,31 @@
+<h1>Order Complete.</h1>
+
+<p>Here are your order details:</p>
+<div class="card bg-dark" style="width: 50rem;">
+  <div class="card-body">
+    <h5 class="card-title">Status: <%=params[:status].capitalize %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><%=params[:reason] %></h6>
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-dark">
+        <%= @order.email %>
+      </li>
+      <li class="list-group-item list-group-item-dark">
+        <%= "Payment Used" %>
+        <br/>
+        <%= "XXXX-XXXX-XXXX-"+current_user.payment_detail.card_number[12,15] %>
+      </li>
+      <li class="list-group-item list-group-item-dark">
+        <%= "Items" %>
+        <br/>
+        <% @order.cart_items.each do |item| %>
+        <%= item.quantity %> x <%= Item.find(item.item_id).name %>
+          <br/>
+      <% end %>
+      </li>
+
+    </ul>
+
+  </div>
+</div>
+
+

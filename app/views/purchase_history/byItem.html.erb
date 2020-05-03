@@ -1,0 +1,28 @@
+<h1>PurchaseHistory#byItem</h1>
+<h2><%=Item.find(params[:item]).name %></h2>
+<table class="table table-dark">
+  <thead>
+  <tr>
+    <th>Order ID</th>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Purchased at</th>
+    <th>Last Update at</th>
+
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.id %></td>
+      <td><%= order.email %></td>
+      <td><%= order.status %></td>
+      <td><%= order.created_at %></td>
+      <td><%= order.updated_at %></td>
+    </tr>
+  <%end %>
+    </tbody>
+
+</table>

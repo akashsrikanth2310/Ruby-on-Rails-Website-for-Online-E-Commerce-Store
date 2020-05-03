@@ -1,0 +1,37 @@
+<table class="table table-dark">
+  <thead>
+  <tr>
+    <th><%= sortable "id", "Order ID" %></th>
+    <th>Email</th>
+    <th>Items</th>
+    <th><%= sortable "Status" %></th>
+
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.id %></td>
+      <td><%= order.name %></td>
+      <td>
+        <ul>
+          <% order.cart_items.each do |item| %>
+            <li><%= item.quantity %> <%= Item.find(item.item_id).name %></li>
+            <% if order.status.in? ["Success","Purchased"] %>
+              <%= button_to 'Return Item', return_items_update_status_path(:item_id =>item.item_id, :order_id => order.id,:current_user_id => current_user.id), class: 'btn btn-danger', :method => :post%>
+            <% end %>
+          <% end %>
+        </ul>
+      <td><%= order.status %></td>
+      <% if current_user && current_user.role == 'admin' %>
+        <% if order.status.in? ["Pending Admin Approval"] %>
+          <td><%= button_to 'Approve Restricted Item Order', orders_update_path(:order_id => order.id, :status => "approve"), class: 'btn btn-danger', :method => :post%></td>
+          <td> <%= button_to 'Reject Restricted Item Order', orders_update_path(:order_id => order.id, :status => "reject"), class: 'btn btn-danger', :method => :post%></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+
+</table>
